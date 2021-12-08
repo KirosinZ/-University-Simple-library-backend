@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="1" author="anikin" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <not>
+                    <tableExists tableName="language"/>
+                </not>
+                <not>
+                    <tableExists tableName="book"/>
+                </not>
+                <not>
+                    <tableExists tableName="author"/>
+                </not>
+                <not>
+                    <tableExists tableName="country"/>
+                </not>
+            </and>
+        </preConditions>
+
+        <createTable tableName="language">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="nvarchar2(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="book">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable  tableName="author">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="full_name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="country">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="nvarchar2(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="book"
+                                 baseColumnNames="author_id"
+                                 constraintName="fk_book_author_author_id"
+                                 referencedTableName="author"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="book"
+                                 baseColumnNames="language_id"
+                                 constraintName="fk_book_language_language_id"
+                                 referencedTableName="language"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="author"
+                                 baseColumnNames="country_id"
+                                 constraintName="fk_author_country_country_id"
+                                 referencedTableName="country"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="book" constraintName="fk_book_author_author_id" />
+            <dropForeignKeyConstraint baseTableName="book" constraintName="fk_book_language_language_id"/>
+            <dropForeignKeyConstraint baseTableName="author" constraintName="fk_book_country_country_id"/>
+            <dropTable tableName="language"/>
+            <dropTable tableName="book"/>
+            <dropTable tableName="author"/>
+            <dropTable tableName="country"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
