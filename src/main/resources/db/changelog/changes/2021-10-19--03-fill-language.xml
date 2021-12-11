@@ -18,6 +18,30 @@
             <column name="name">Английский</column>
         </insert>
 
+        <insert tableName="language">
+            <column name="name">Французский</column>
+        </insert>
+
+        <insert tableName="language">
+            <column name="name">Немецкий</column>
+        </insert>
+
+        <insert tableName="language">
+            <column name="name">Итальянский</column>
+        </insert>
+
+        <insert tableName="language">
+            <column name="name">Испанский</column>
+        </insert>
+
+        <insert tableName="language">
+            <column name="name">Китайский</column>
+        </insert>
+
+        <insert tableName="language">
+            <column name="name">Японский</column>
+        </insert>
+
         <rollback>
             <delete tableName="language"/>
         </rollback>

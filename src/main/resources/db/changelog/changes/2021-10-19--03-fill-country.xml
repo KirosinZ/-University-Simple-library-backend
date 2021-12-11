@@ -18,6 +18,38 @@
             <column name="name">Великобритания</column>
         </insert>
 
+        <insert tableName="country">
+            <column name="name">США</column>
+        </insert>
+
+        <insert tableName="country">
+            <column name="name">Франция</column>
+        </insert>
+
+        <insert tableName="country">
+            <column name="name">Германия</column>
+        </insert>
+
+        <insert tableName="country">
+            <column name="name">Италия</column>
+        </insert>
+
+        <insert tableName="country">
+            <column name="name">Испания</column>
+        </insert>
+
+        <insert tableName="country">
+            <column name="name">Португалия</column>
+        </insert>
+
+        <insert tableName="country">
+            <column name="name">Китай</column>
+        </insert>
+
+        <insert tableName="country">
+            <column name="name">Япония</column>
+        </insert>
+
         <rollback>
             <delete tableName="country"/>
         </rollback>
